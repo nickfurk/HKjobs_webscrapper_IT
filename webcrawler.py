@@ -271,7 +271,11 @@ def write_to_db(order_num, job_link, mycursor, mydb):
     """
     value = get_page_data(order_num, job_link)
     sql = "INSERT INTO jobs (job_title, usd_pay_equivalent, salary_term, order_num, vacancy, ordNo, create_date,  employer_name, district, industry, responsibility, requirement, empl_term, application_info, remark) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-    mycursor.execute(sql, value)
+    try:
+        mycursor.execute(sql, value)
+    except Exception as err:
+        print("Error occured")
+
     mydb.commit()
     print(order_num, "record inserted")
 
