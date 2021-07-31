@@ -21,13 +21,13 @@ def HEADERS():
         'sec-ch-ua': '" Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"',
         'sec-ch-ua-mobile': '?0',
         'Upgrade-Insecure-Requests': '1',
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Mobile Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'Sec-Fetch-Site': 'same-origin',
         'Sec-Fetch-Mode': 'navigate',
         'Sec-Fetch-User': '?1',
         'Sec-Fetch-Dest': 'document',
-        'Referer': 'https://www2.jobs.gov.hk/0/tc/JobSeeker/jobsearch/joblist/simple/?direct=False',
+        'Referer': 'https://www2.jobs.gov.hk/0/en/JobSeeker/jobsearch/joblist/?direct=False',
         'Accept-Language': 'en-US,en;q=0.9,fr;q=0.8',
     }
 
@@ -55,7 +55,7 @@ def run_search_query(headers, session_cookies):
     return: requests post
     """
     return requests.post(
-        url="https://www2.jobs.gov.hk/0/tc/JobSeeker/jobsearch/search/simple/",
+        url="https://www2.jobs.gov.hk/0/en/jobSeeker/jobsearch/simple/",
         headers=headers,
         cookies=session_cookies,
         data={
@@ -67,7 +67,7 @@ def run_search_query(headers, session_cookies):
             'criteria.salaryFr': None,
             'criteria.salaryTo': None,
             'criteria.searchField': None,
-            'criteria.searchByOption': '1',
+            'criteria.searchByOption': '0',
             'isMobile': 'true',
         }
     )
@@ -297,8 +297,6 @@ def main():
     response = get_session_cookies(headers)
     session_cookies = response.cookies
     response = run_search_query(headers, session_cookies)
-    print(f"Post state: {response.status_code}")
-
     mydb = connect_database()
     mycursor = mydb.cursor(buffered=True)
     check_db_exists(mycursor)
